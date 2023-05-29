@@ -1,4 +1,5 @@
 #include "common.h"
+
 const int add = 0;
 const int minus = 1;
 const int multiply = 2;
@@ -7,7 +8,7 @@ const int divide = 3;
 class Task
 {
 public:
-  int arg_1, arg_2, type, result;
+  int arg_1, arg_2, type, res;
   Task(int arg_1, int arg_2, int type)
   {
     this->arg_1 = arg_1;
@@ -20,20 +21,20 @@ public:
     switch (this->type)
     {
     case add:
-      result = this->arg_1 + this->arg_2;
+      res = this->arg_1 + this->arg_2;
       break;
     case minus:
-      result = this->arg_1 - this->arg_2;
+      res = this->arg_1 - this->arg_2;
       break;
     case multiply:
-      result = this->arg_1 * this->arg_2;
+      res = this->arg_1 * this->arg_2;
       break;
     case divide:
       if (this->arg_2 == 0)
       {
         exit(EXIT_FAILURE);
       }
-      result = this->arg_1 / this->arg_2;
+      res = this->arg_1 / this->arg_2;
       break;
     default:
       break;
@@ -87,7 +88,7 @@ int main()
   sem_post(req_sem);
   sem_wait(res_sem);
 
-  int result = shm_start->result;
+  int result = shm_start->res;
   std::cout << "The result is: " << result << std::endl;
   if (munmap(shm_start, shm_size) == -1)
   {
